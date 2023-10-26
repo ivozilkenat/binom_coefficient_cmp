@@ -9,13 +9,10 @@ def time_function(func: callable):
         r = func(*args, **kwargs)
         return r, timer() - s
     return __inner
-    
+
+# Lazy implementation
 def factorial(n: int):
     return 1 if n <= 1 else n * factorial(n - 1)
-
-@cache
-def factorial_memoization(n: int):
-    return 1 if n <= 1 else n * factorial_memoization(n - 1)
 
 def pascal(n: int, k: int):
     if k == 0:
@@ -39,8 +36,6 @@ class BinomialCoefficient:
     @time_function
     @staticmethod
     def explicit(n: int, k: int):
-        if BinomialCoefficient.USE_CACHING:
-            return factorial_memoization(n) / (factorial_memoization(k)*(factorial_memoization(n-k)))
         return factorial(n) / (factorial(k)*(factorial(n-k)))
 
     @time_function
